@@ -1,5 +1,6 @@
 // ===== SETTINGS =====
-const WHATSAPP_NUMBER = "0788243168"; 
+const WHATSAPP_DISPLAY = "0788243168";
+const WHATSAPP_NUMBER  = "2788243168"; 
 const hamburger = document.getElementById("hamburger");
 const mobileMenu = document.getElementById("mobileMenu");
 
