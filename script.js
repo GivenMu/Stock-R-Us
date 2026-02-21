@@ -1,6 +1,6 @@
 // ===== SETTINGS =====
-const WHATSAPP_NUMBER = "27888243168"; 
-// 0788243168 -> 27 + 788243168 (remove leading 0) => 27888243168
+const WHATSAPP_NUMBER = "2788243168"; 
+// 0788243168 -> 27 + 788243168 (remove leading 0) => 2788243168
 
 // ===== MOBILE MENU =====
 const hamburger = document.getElementById("hamburger");
