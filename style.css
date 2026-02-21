@@ -605,3 +605,9 @@ body::after{
 
 /* Hide main content at first */
 #main-content{display:none;}
+/* Stop iPhone zooming when typing */
+@media (max-width: 720px){
+  input, select, textarea{
+    font-size:16px !important;  /* iOS zoom fix */
+  }
+}
