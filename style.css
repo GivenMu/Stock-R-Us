@@ -1,0 +1,608 @@
+:root{
+  --blue:#1e88e5;
+  --pink:#ff4fa3;
+  --orange:#ff9f1c;
+  --green:#34c759;
+  --purple:#7c4dff;
+  --yellow:#ffd60a;
+
+  --ink:#1b1b1f;
+  --muted:#5f6070;
+  --bg:#ffffff;
+  --soft:#f7f7ff;
+  --card:#ffffff;
+  --line:#ececf6;
+  --shadow: 0 14px 40px rgba(0,0,0,.10);
+  --radius: 18px;
+  --radius2: 28px;
+  --font: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--font);
+  color:var(--ink);
+
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255,0,128,.25), transparent 45%),
+    radial-gradient(circle at 90% 15%, rgba(0,140,255,.25), transparent 45%),
+    radial-gradient(circle at 15% 85%, rgba(0,255,170,.22), transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(255,220,0,.22), transparent 45%),
+    linear-gradient(135deg,
+      rgba(255,0,64,.18),
+      rgba(255,140,0,.16),
+      rgba(255,220,0,.14),
+      rgba(0,255,128,.14),
+      rgba(0,170,255,.14),
+      rgba(120,80,255,.14),
+      rgba(255,0,200,.16)
+    ),
+    #ffffff;
+}
+
+/* Rainbow confetti pattern */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.25;
+  background:
+    radial-gradient(circle, rgba(255,79,163,.9) 2px, transparent 3px) 0 0/40px 40px,
+    radial-gradient(circle, rgba(30,136,229,.9) 2px, transparent 3px) 20px 10px/44px 44px,
+    radial-gradient(circle, rgba(52,199,89,.9) 2px, transparent 3px) 10px 25px/46px 46px,
+    radial-gradient(circle, rgba(255,159,28,.9) 2px, transparent 3px) 30px 30px/48px 48px,
+    radial-gradient(circle, rgba(124,77,255,.9) 2px, transparent 3px) 15px 15px/50px 50px;
+  filter: blur(.2px);
+}
+
+.container{max-width:1100px; margin:0 auto; padding:18px}
+a{color:inherit; text-decoration:none}
+.joy{color:var(--blue); font-weight:900}
+.hope{color:var(--pink); font-weight:900}
+
+/* Floating WhatsApp */
+.wa-float{
+  position:fixed; right:16px; bottom:16px; z-index:999;
+  display:flex; align-items:center; gap:10px;
+  padding:12px 14px;
+  border-radius:999px;
+  background:linear-gradient(90deg, var(--green), #25D366);
+  color:#fff;
+  font-weight:900;
+  box-shadow: 0 16px 30px rgba(37,211,102,.25);
+}
+.wa-icon{font-size:18px}
+.wa-text{display:block}
+.wa-dot{
+  width:10px; height:10px; border-radius:99px;
+  background:var(--yellow);
+  box-shadow: 0 0 0 6px rgba(255,214,10,.25);
+}
+
+/* Header */
+.header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(255,255,255,.88);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex; align-items:center; justify-content:space-between; gap:16px}
+
+.brand{display:flex; align-items:center; gap:12px}
+.logo{
+  width:52px; height:52px;
+  border-radius:18px;
+  object-fit:cover;
+  border:1px solid var(--line);
+  box-shadow: var(--shadow);
+  background:#fff;
+}
+.logo-fallback{
+  width:52px; height:52px;
+  border-radius:18px;
+  display:grid; place-items:center;
+  background:linear-gradient(135deg, rgba(30,136,229,.25), rgba(255,79,163,.25));
+  border:1px solid var(--line);
+  box-shadow: var(--shadow);
+  font-size:24px;
+}
+.brand-name{font-size:18px; font-weight:1000; letter-spacing:.2px}
+.brand-tag{font-size:13px; color:var(--muted); font-weight:800}
+
+.menu{display:flex; align-items:center; gap:14px}
+.menu a{padding:10px 10px; border-radius:12px; color:var(--muted); font-weight:900}
+.menu a:hover{background:var(--soft); color:var(--ink)}
+
+.hamburger{display:none; border:0; background:transparent; font-size:22px; padding:10px; border-radius:12px}
+.hamburger:hover{background:var(--soft)}
+.mobile-menu{display:none; border-top:1px solid var(--line); padding:10px 18px}
+.mobile-menu a{
+  display:block; padding:12px 10px; border-radius:12px;
+  color:var(--muted); font-weight:1000;
+}
+.mobile-menu a:hover{background:var(--soft); color:var(--ink)}
+
+/* Buttons */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:12px 16px;
+  border-radius:16px;
+  border:0;
+  background:linear-gradient(90deg, var(--blue), var(--pink));
+  color:#fff;
+  font-weight:1000;
+  cursor:pointer;
+  box-shadow: 0 14px 24px rgba(30,136,229,.18);
+}
+.btn:hover{transform: translateY(-1px)}
+.btn.small{padding:10px 12px; border-radius:14px; font-size:14px}
+.btn.ghost{
+  background:#fff;
+  color:var(--ink);
+  border:1px solid var(--line);
+  box-shadow:none;
+}
+.btn.ghost:hover{background:var(--soft)}
+
+/* Hero */
+.hero{
+  padding:22px 0 8px;
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap:18px;
+  align-items:stretch;
+}
+.pill{
+  display:inline-flex; gap:8px; align-items:center;
+  padding:10px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.92);
+  border:1px solid var(--line);
+  color:var(--muted);
+  font-weight:1000;
+}
+.hero h1{
+  margin:14px 0 10px;
+  font-size:44px;
+  line-height:1.05;
+}
+.hero p{color:var(--muted); font-size:16px; line-height:1.7; margin:0 0 16px}
+.hero-actions{display:flex; gap:12px; flex-wrap:wrap}
+
+.fun-chips{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+.chip{
+  padding:10px 12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.92);
+  border:1px solid var(--line);
+  color:var(--muted);
+  font-weight:1000;
+}
+
+/* Cards */
+.card{
+  background:rgba(255,255,255,.93);
+  border:1px solid var(--line);
+  border-radius:var(--radius2);
+  padding:16px;
+  box-shadow: var(--shadow);
+}
+.section{padding:22px 0}
+.section-head h2{margin:0; font-size:30px}
+.section-head p{margin:8px 0 0; color:var(--muted); line-height:1.6; font-weight:800}
+
+.grid-3{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:14px;
+}
+
+/* Hero right */
+.hero-card{
+  background:linear-gradient(135deg, rgba(30,136,229,.10), rgba(255,79,163,.12));
+  border:1px solid rgba(30,136,229,.16);
+  border-radius:var(--radius2);
+  padding:16px;
+  box-shadow: var(--shadow);
+}
+.hero-card-top{display:flex; gap:12px; align-items:center}
+.sticker{
+  width:44px; height:44px;
+  border-radius:18px;
+  display:grid; place-items:center;
+  background:rgba(255,255,255,.92);
+  border:1px solid var(--line);
+  font-size:20px;
+}
+.hero-card-title{font-weight:1000}
+.hero-card-sub{color:var(--muted); font-weight:900; font-size:13px}
+.hero-card-body{margin-top:12px}
+.bubble-row{display:flex; gap:8px; flex-wrap:wrap}
+.bubble{
+  width:18px; height:18px; border-radius:999px;
+  border:1px solid rgba(0,0,0,.06);
+}
+.b1{background:rgba(30,136,229,.45)}
+.b2{background:rgba(255,79,163,.45)}
+.b3{background:rgba(52,199,89,.45)}
+.b4{background:rgba(124,77,255,.45)}
+.b5{background:rgba(255,159,28,.45)}
+.mini-note{margin-top:10px; color:var(--muted); font-weight:900; line-height:1.5}
+
+.stats{margin-top:14px; display:grid; grid-template-columns: repeat(3, 1fr); gap:12px}
+.stat{
+  background:rgba(255,255,255,.92);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:12px;
+  box-shadow: var(--shadow);
+}
+.stat-num{font-weight:1000; font-size:22px}
+.stat-label{color:var(--muted); font-weight:900; font-size:12px}
+
+/* Products */
+.products{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:14px;
+}
+.product{
+  background:rgba(255,255,255,.93);
+  border:1px solid var(--line);
+  border-radius:var(--radius2);
+  padding:14px;
+  box-shadow: var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.product::after{
+  content:"";
+  position:absolute; inset:-60px -60px auto auto;
+  width:160px; height:160px; border-radius:999px;
+  background:radial-gradient(circle, rgba(255,214,10,.35), transparent 60%);
+  transform: rotate(25deg);
+}
+
+/* ✅ FIXED IMAGE SIZE (FULL VIEW + NOT TOO BIG ON MOBILE) */
+.img-wrap{
+  width:100%;
+  display:flex;
+  justify-content:center;
+}
+.img-wrap img{
+  width:100%;
+  max-width: 420px;
+  height: 190px;         /* controlled height */
+  object-fit: contain;   /* full picture */
+  object-position:center;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:#fff;
+  display:block;
+}
+
+.tag{
+  position:absolute; left:12px; top:12px;
+  padding:8px 10px;
+  border-radius:999px;
+  font-weight:1000;
+  font-size:12px;
+  border:1px solid rgba(0,0,0,.08);
+  background:rgba(255,255,255,.92);
+}
+.tag.pair{color:var(--blue)}
+.tag.bundle{color:var(--pink)}
+
+.product h3{margin:12px 0 6px; font-weight:1000}
+.product p{margin:0 0 12px; color:var(--muted); font-weight:900; line-height:1.5}
+
+.qtybar{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px;
+  padding:10px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.92);
+}
+.qty{
+  width:86px;
+  text-align:center;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  font-weight:1000;
+  outline:none;
+}
+.qty:focus{border-color: rgba(30,136,229,.35); box-shadow:0 0 0 4px rgba(30,136,229,.12)}
+.qtybtn{
+  width:44px; height:44px;
+  border-radius:16px;
+  border:1px solid var(--line);
+  background:var(--soft);
+  font-weight:1000;
+  font-size:20px;
+  cursor:pointer;
+}
+.qtybtn:hover{transform: translateY(-1px)}
+.add{width:100%; margin-top:12px}
+
+/* Cart */
+.cart{margin-top:14px}
+.cart-head{display:flex; align-items:center; justify-content:space-between; gap:10px}
+.cart-items{margin-top:10px; color:var(--muted); font-weight:900; line-height:1.7}
+.cart-items b{color:var(--ink)}
+
+/* Order */
+.order-wrap{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap:14px;
+}
+.form label{display:block; font-weight:1000; color:var(--muted); margin:10px 0 6px}
+.form input, .form select, .form textarea{
+  width:100%;
+  padding:12px 12px;
+  border-radius:16px;
+  border:1px solid var(--line);
+  outline:none;
+  font-weight:900;
+  background:#fff;
+}
+.form input:focus, .form select:focus, .form textarea:focus{
+  border-color: rgba(255,79,163,.35);
+  box-shadow: 0 0 0 4px rgba(255,79,163,.12);
+}
+.grid-2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+
+.summary{
+  margin-top:14px;
+  padding:12px;
+  border-radius:20px;
+  background:linear-gradient(135deg, rgba(30,136,229,.10), rgba(255,79,163,.10));
+  border:1px dashed rgba(30,136,229,.22);
+}
+.summary-title{font-weight:1000; margin-bottom:6px}
+.summary-items{color:var(--muted); font-weight:900; line-height:1.7}
+
+.actions{display:flex; justify-content:flex-end; margin-top:14px}
+.tips ul{margin:10px 0 0; padding-left:18px; color:var(--muted); font-weight:900; line-height:1.8}
+.callout{
+  margin-top:12px;
+  padding:12px;
+  border-radius:20px;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(30,136,229,.16);
+  font-weight:1000;
+}
+
+/* Footer */
+.footer{margin-top:22px; border-top:1px solid var(--line); padding:18px 0 30px}
+.footer-inner{display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap}
+.footer-links{display:flex; gap:10px; flex-wrap:wrap}
+.footer-links a{color:var(--muted); font-weight:900; padding:8px 10px; border-radius:12px}
+.footer-links a:hover{background:var(--soft); color:var(--ink)}
+.tiny{color:var(--muted); font-size:12px; font-weight:800}
+
+/* Responsive */
+@media (max-width: 980px){
+  .hero{grid-template-columns:1fr}
+  .products{grid-template-columns:1fr}
+  .grid-3{grid-template-columns:1fr}
+  .order-wrap{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
+}
+
+@media (max-width: 720px){
+  .menu{display:none}
+  .hamburger{display:block}
+  .mobile-menu.open{display:block}
+  .grid-2{grid-template-columns:1fr}
+  .wa-text{display:none}
+
+  /* ✅ Smaller images on phone */
+  .img-wrap img{
+    height: 140px;
+    max-width: 320px;
+  }
+
+  /* small spacing */
+  .product{padding:12px}
+}
+
+/* ==============================
+   KIDS RAINBOW UPGRADE PACK
+================================ */
+
+/* Softer cartoon vibe for text */
+h1, h2, h3, .brand-name{
+  letter-spacing: .2px;
+  text-shadow: 0 2px 0 rgba(255,255,255,.65);
+}
+
+/* Make sections look “framed” with rainbow border */
+.section{position:relative;}
+.section::before{
+  content:"";
+  position:absolute;
+  inset:-8px;
+  border-radius: calc(var(--radius2) + 10px);
+  background: linear-gradient(90deg,
+    rgba(255,0,120,.55),
+    rgba(255,140,0,.55),
+    rgba(255,220,0,.55),
+    rgba(0,255,140,.55),
+    rgba(0,170,255,.55),
+    rgba(120,80,255,.55),
+    rgba(255,0,200,.55)
+  );
+  z-index:-2;
+  filter: blur(2px);
+  opacity:.40;
+}
+.section::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius: calc(var(--radius2) + 4px);
+  background: rgba(255,255,255,.55);
+  z-index:-1;
+  backdrop-filter: blur(6px);
+}
+
+/* Super colorful “candy” buttons */
+.btn{
+  background: linear-gradient(90deg,
+    #ff4fa3, #ff9f1c, #ffd60a, #34c759, #1e88e5, #7c4dff, #ff4fa3
+  );
+  background-size: 300% 100%;
+  animation: rainbowMove 6s linear infinite;
+}
+@keyframes rainbowMove{
+  0%{background-position:0% 50%}
+  100%{background-position:100% 50%}
+}
+
+/* Give ghost buttons rainbow outline */
+.btn.ghost{
+  border:2px solid transparent;
+  background:
+    linear-gradient(#fff,#fff) padding-box,
+    linear-gradient(90deg,#1e88e5,#ff4fa3,#ff9f1c,#34c759,#7c4dff) border-box;
+}
+
+/* Card background: slightly tinted instead of plain white */
+.card, .product, .hero-card, .stat{
+  background: rgba(255,255,255,.85) !important;
+  backdrop-filter: blur(10px);
+}
+
+/* Make cards more playful with glow */
+.card:hover, .product:hover, .stat:hover{
+  box-shadow:
+    0 16px 40px rgba(0,0,0,.10),
+    0 0 0 4px rgba(255,79,163,.10),
+    0 0 0 10px rgba(30,136,229,.08);
+  transform: translateY(-2px);
+  transition: .25s ease;
+}
+
+/* Product cards: rainbow outline */
+.product{
+  border:2px solid transparent;
+  background:
+    linear-gradient(rgba(255,255,255,.88), rgba(255,255,255,.88)) padding-box,
+    linear-gradient(135deg,#ff4fa3,#ff9f1c,#ffd60a,#34c759,#1e88e5,#7c4dff) border-box;
+}
+
+/* Product image: add rainbow frame */
+.img-wrap img{
+  border:3px solid transparent !important;
+  background:
+    linear-gradient(#fff,#fff) padding-box,
+    linear-gradient(135deg,#1e88e5,#ff4fa3,#ffd60a,#34c759,#7c4dff) border-box !important;
+}
+
+/* Cute tags */
+.tag{
+  background: rgba(255,255,255,.92);
+  border:2px solid transparent;
+  background:
+    linear-gradient(rgba(255,255,255,.92), rgba(255,255,255,.92)) padding-box,
+    linear-gradient(90deg,#1e88e5,#ff4fa3,#ff9f1c,#34c759,#7c4dff) border-box;
+}
+
+/* Make the “pill” more colorful */
+.pill{
+  border:2px solid transparent;
+  background:
+    linear-gradient(rgba(255,255,255,.92), rgba(255,255,255,.92)) padding-box,
+    linear-gradient(90deg,#ff4fa3,#ff9f1c,#ffd60a,#34c759,#1e88e5,#7c4dff) border-box;
+}
+
+/* Fun chips with pastel colors */
+.chip{
+  border:2px solid transparent;
+  background:
+    linear-gradient(rgba(255,255,255,.90), rgba(255,255,255,.90)) padding-box,
+    linear-gradient(90deg, rgba(255,79,163,.5), rgba(30,136,229,.5), rgba(52,199,89,.5)) border-box;
+}
+
+/* Inputs feel like kids UI */
+.form input, .form select, .form textarea, .qty{
+  border:2px solid rgba(0,0,0,.06);
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.6);
+}
+
+/* Qty buttons: colorful */
+.qtybtn{background: linear-gradient(135deg, rgba(255,79,163,.18), rgba(30,136,229,.18));}
+.qtybtn:hover{box-shadow: 0 10px 20px rgba(30,136,229,.15);}
+
+/* Floating WhatsApp: more playful */
+.wa-float{
+  border:2px solid rgba(255,255,255,.55);
+  background: linear-gradient(90deg, #25D366, #34c759, #ffd60a);
+}
+
+/* Add floating bubble shapes behind everything */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+  opacity:.25;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,79,163,.60), transparent 18%),
+    radial-gradient(circle at 80% 20%, rgba(30,136,229,.60), transparent 18%),
+    radial-gradient(circle at 75% 75%, rgba(52,199,89,.55), transparent 20%),
+    radial-gradient(circle at 25% 80%, rgba(255,159,28,.55), transparent 20%),
+    radial-gradient(circle at 50% 55%, rgba(124,77,255,.45), transparent 22%);
+}
+
+/* Make header slightly rainbow too */
+.header{
+  background:
+    linear-gradient(90deg, rgba(255,79,163,.20), rgba(30,136,229,.20), rgba(52,199,89,.18)) !important;
+  border-bottom: 2px solid rgba(255,255,255,.5);
+}
+
+/* Tiny fun animation on hero sticker */
+.sticker{animation: pop 1.8s ease-in-out infinite;}
+@keyframes pop{
+  0%,100%{transform: translateY(0) rotate(0deg)}
+  50%{transform: translateY(-4px) rotate(4deg)}
+}
+
+/* Splash Screen */
+#splash{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #ffcc00, #ff66cc, #66ccff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* BIG logo only for splash */
+#splash .logo{
+  width: 120px;
+  height: 180px;
+  object-fit: contain;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  display: block;
+}
+
+/* Hide main content at first */
+#main-content{display:none;}
