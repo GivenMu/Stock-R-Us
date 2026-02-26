@@ -272,7 +272,7 @@ a{color:inherit; text-decoration:none}
 }
 .look-mini-grid img{
   width:100%;
-  height:120px;
+  height:170px;
   object-fit:cover;
   border-radius:16px;
   border:1px solid var(--line);
