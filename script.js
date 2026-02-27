@@ -1,6 +1,8 @@
 // ===== SETTINGS =====
 const WHATSAPP_DISPLAY = "0788243168";
-const WHATSAPP_NUMBER  = "27788243168"; 
+const WHATSAPP_NUMBER  = "27788243168";
+
+// ===== NAV =====
 const hamburger = document.getElementById("hamburger");
 const mobileMenu = document.getElementById("mobileMenu");
 
@@ -8,12 +10,12 @@ hamburger?.addEventListener("click", () => {
   mobileMenu.classList.toggle("open");
 });
 
-// ===== CART LOGIC =====
-const qtyInputs = document.querySelectorAll(".qty");
+// ===== CART ELEMENTS =====
 const cartItemsEl = document.getElementById("cartItems");
 const summaryItemsEl = document.getElementById("summaryItems");
 const cartCountEl = document.getElementById("cartCount");
 
+// ---- helpers ----
 function clampQty(input) {
   let v = parseInt(input.value || "0", 10);
   if (Number.isNaN(v) || v < 0) v = 0;
@@ -21,17 +23,34 @@ function clampQty(input) {
   return v;
 }
 
+function getQtyInputs() {
+  // ✅ ALWAYS get latest qty inputs (includes looks)
+  return Array.from(document.querySelectorAll(".qty"));
+}
+
+function money(n) {
+  const v = Number(n || 0);
+  return `R${v}`;
+}
+
 function getCartItems() {
   const items = [];
-  qtyInputs.forEach(input => {
+  getQtyInputs().forEach(input => {
     const qty = clampQty(input);
-    if (qty > 0) items.push({ name: input.dataset.name, qty });
+    const name = input.dataset.name || "Item";
+    const price = Number(input.dataset.price || 0);
+
+    if (qty > 0) items.push({ name, qty, price });
   });
   return items;
 }
 
 function totalQty(items) {
   return items.reduce((sum, i) => sum + i.qty, 0);
+}
+
+function totalPrice(items) {
+  return items.reduce((sum, i) => sum + (i.qty * i.price), 0);
 }
 
 function renderCart() {
@@ -45,19 +64,30 @@ function renderCart() {
     return;
   }
 
-  const lines = items.map(i => `• <b>${i.name}</b> — Qty: ${i.qty}`).join("<br/>");
-  cartItemsEl.innerHTML = lines;
-  summaryItemsEl.innerHTML = lines;
+  const lines = items
+    .map(i => `• <b>${i.name}</b> — Qty: ${i.qty} <span style="opacity:.85;">(${money(i.price)} each)</span>`)
+    .join("<br/>");
+
+  cartItemsEl.innerHTML = lines + `<br/><br/><b>Total:</b> ${money(totalPrice(items))}`;
+  summaryItemsEl.innerHTML = lines + `<br/><br/><b>Total:</b> ${money(totalPrice(items))}`;
 }
 
-qtyInputs.forEach(i => i.addEventListener("input", renderCart));
+// initial render
 renderCart();
 
-// ===== PLUS / MINUS BUTTONS =====
-document.querySelectorAll(".qtybtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const product = btn.closest("[data-product]");
-    const input = product.querySelector(".qty");
+// ===== EVENT DELEGATION: PLUS/MINUS + ADD BUTTONS + INPUT CHANGES =====
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".qtybtn");
+  const addBtn = e.target.closest(".add");
+
+  // PLUS / MINUS
+  if (btn) {
+    const card = btn.closest("[data-product]") || btn.closest(".look-product") || btn.closest(".look-bundle-card");
+    if (!card) return;
+
+    const input = card.querySelector(".qty");
+    if (!input) return;
+
     let v = clampQty(input);
 
     if (btn.dataset.action === "inc") v += 1;
@@ -65,27 +95,41 @@ document.querySelectorAll(".qtybtn").forEach(btn => {
 
     input.value = v;
     renderCart();
-  });
-});
+    return;
+  }
 
-// ===== ADD TO CART BUTTON (just a cute feedback) =====
-document.querySelectorAll(".add").forEach(addBtn => {
-  addBtn.addEventListener("click", () => {
-    const product = addBtn.closest("[data-product]");
-    const input = product.querySelector(".qty");
+  // ADD TO CART BUTTON
+  if (addBtn) {
+    const card = addBtn.closest("[data-product]") || addBtn.closest(".look-product") || addBtn.closest(".look-bundle-card");
+    if (!card) return;
+
+    const input = card.querySelector(".qty");
+    if (!input) return;
+
     let v = clampQty(input);
     if (v === 0) {
       input.value = 1;
-      renderCart();
     }
+
+    renderCart();
+
+    const old = addBtn.textContent;
     addBtn.textContent = "Added ✅";
-    setTimeout(() => (addBtn.textContent = "Add to Cart"), 900);
-  });
+    setTimeout(() => (addBtn.textContent = old || "Add to Cart"), 900);
+  }
+});
+
+// When user types qty manually
+document.addEventListener("input", (e) => {
+  const input = e.target.closest(".qty");
+  if (!input) return;
+  clampQty(input);
+  renderCart();
 });
 
 // ===== CLEAR CART =====
 document.getElementById("clearCart")?.addEventListener("click", () => {
-  qtyInputs.forEach(i => (i.value = 0));
+  getQtyInputs().forEach(i => (i.value = 0));
   renderCart();
 });
 
@@ -94,29 +138,38 @@ function buildWhatsAppMessage() {
   const items = getCartItems();
   if (items.length === 0) return null;
 
-  const fullName = document.getElementById("fullName").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const kidsType = document.getElementById("kidsType").value;
-  const size = document.getElementById("size").value.trim();
-  const address = document.getElementById("address").value.trim();
-  const notes = document.getElementById("notes").value.trim();
+  const fullName = document.getElementById("fullName")?.value.trim() || "";
+  const phone = document.getElementById("phone")?.value.trim() || "";
+  const kidsType = document.getElementById("kidsType")?.value || "";
+  const size = document.getElementById("size")?.value.trim() || "";
+  const bowColor = document.getElementById("bowColor")?.value.trim() || "";
+  const deliveryType = document.getElementById("deliveryType")?.value || "";
+  const address = document.getElementById("address")?.value.trim() || "";
+  const notes = document.getElementById("notes")?.value.trim() || "";
 
   const lines = [];
   lines.push("🧦 Socks R Us Order — Steps of Joy & Hope");
   lines.push("");
+
   lines.push("👤 Customer Details");
   if (fullName) lines.push(`• Name: ${fullName}`);
   if (phone) lines.push(`• Phone: ${phone}`);
-  if (kidsType) lines.push(`• Socks For: ${kidsType}`);
-  if (size) lines.push(`• Size: ${size}`);
-  if (address) lines.push(`• Delivery/Pickup: ${address}`);
+  if (kidsType) lines.push(`• Items For: ${kidsType}`);
+  if (size) lines.push(`• Sock Size: ${size}`);
+  if (bowColor) lines.push(`• Bow Color: ${bowColor}`);
+  if (deliveryType) lines.push(`• Delivery/Pickup: ${deliveryType}`);
+  if (address) lines.push(`• Address/Info: ${address}`);
   if (notes) lines.push(`• Notes: ${notes}`);
 
   lines.push("");
   lines.push("🛒 Items");
-  items.forEach(i => lines.push(`• ${i.name} — Qty: ${i.qty}`));
+  items.forEach(i => {
+    lines.push(`• ${i.name} — Qty: ${i.qty} — ${money(i.price)} each`);
+  });
+
   lines.push("");
-  lines.push("✅ Please confirm availability + total price. Thank you!");
+  lines.push(`💰 Total (estimate): ${money(totalPrice(items))}`);
+  lines.push("✅ Please confirm availability + final total price. Thank you!");
 
   return lines.join("\n");
 }
@@ -131,10 +184,9 @@ document.getElementById("orderForm")?.addEventListener("submit", (e) => {
     return;
   }
 
-  // Basic required checks (HTML required already helps)
-  const kidsType = document.getElementById("kidsType").value;
+  const kidsType = document.getElementById("kidsType")?.value;
   if (!kidsType) {
-    alert("Please select Socks For (Boys / Girls / Boys & Girls).");
+    alert("Please select Items For (Boys / Girls / Boys & Girls).");
     return;
   }
 
@@ -145,9 +197,8 @@ document.getElementById("orderForm")?.addEventListener("submit", (e) => {
 // ===== FLOATING WHATSAPP BUTTON =====
 document.getElementById("waFloat")?.addEventListener("click", (e) => {
   e.preventDefault();
-  const msg = buildWhatsAppMessage();
 
-  // If no cart, open WhatsApp with a friendly starter message
+  const msg = buildWhatsAppMessage();
   const fallback = "Hi Socks R Us 👋 I’d like to place an order. Please assist me.";
   const text = msg ? msg : fallback;
 
@@ -157,9 +208,13 @@ document.getElementById("waFloat")?.addEventListener("click", (e) => {
 
 // ===== YEAR =====
 document.getElementById("year").textContent = new Date().getFullYear();
+
+// ===== SPLASH =====
 window.onload = function () {
-    setTimeout(function () {
-        document.getElementById("splash").style.display = "none";
-        document.getElementById("main-content").style.display = "block";
-    }, 2500); // 2.5 seconds
+  setTimeout(function () {
+    document.getElementById("splash").style.display = "none";
+    // If you don't have #main-content in HTML, this line can be removed safely
+    const main = document.getElementById("main-content");
+    if (main) main.style.display = "block";
+  }, 2500);
 };

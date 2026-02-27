@@ -696,3 +696,192 @@ body::after{
   .lookbook-grid{grid-template-columns:1fr;}
   .look-card img{height:280px;}
 }
+
+/* Premium Looks Price Badge */
+.looks-price-badge{
+  margin:12px 0 16px;
+  padding:12px 16px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#ff73b5,#7c5cff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  color:white;
+  font-weight:700;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.deal-big{
+  font-size:20px;
+  font-weight:900;
+}
+
+.deal-small{
+  font-size:13px;
+  opacity:.9;
+}
+
+.divider{
+  font-size:14px;
+  opacity:.7;
+}
+
+.deal-bundle{
+  font-size:15px;
+  font-weight:800;
+}
+.look-products-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+  margin-top:15px;
+}
+
+.look-product{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;
+  overflow:hidden;
+}
+
+.look-product img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+}
+
+.look-info{
+  padding:14px;
+}
+
+.look-title{
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.look-price{
+  font-weight:900;
+  margin-bottom:10px;
+  color:#ff73b5;
+}
+/* ✅ ADD THIS TO style.css (to make prices + badges look 🔥) */
+
+/* Price tag (big + visible) */
+.price-line{ margin: 10px 0 8px; }
+.price-tag{
+  display:inline-flex;
+  align-items:center;
+  padding:8px 12px;
+  border-radius:14px;
+  font-weight:900;
+  font-size:18px;
+  letter-spacing:.2px;
+  color:#0b1220;
+  background: linear-gradient(135deg, #ffd86b, #ff73b5);
+  box-shadow: 0 10px 22px rgba(0,0,0,.25);
+  border: 1px solid rgba(255,255,255,.25);
+}
+
+/* Sale badge on product image */
+.img-wrap{ position:relative; }
+.sale-badge{
+  position:absolute;
+  top:10px; left:10px;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  color:#fff;
+  background: linear-gradient(135deg, #ff4d4d, #ff73b5);
+  box-shadow: 0 10px 18px rgba(0,0,0,.25);
+}
+
+/* Bundle badge */
+.bundle-badge{
+  position:absolute;
+  top:10px; right:10px;
+  padding:8px 10px;
+  border-radius:14px;
+  color:#fff;
+  background: linear-gradient(135deg, #7c5cff, #00d1ff);
+  box-shadow: 0 10px 18px rgba(0,0,0,.25);
+  text-align:right;
+}
+.bb-top{ display:block; font-weight:900; font-size:12px; }
+.bb-save{ display:block; font-weight:800; font-size:12px; opacity:.95; }
+
+/* Looks section */
+.looks-price-badge{
+  margin:12px 0 14px;
+  padding:12px 16px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#ff73b5,#7c5cff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  color:white;
+  font-weight:900;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+.deal-big{ font-size:20px; }
+.deal-small{ font-size:13px; opacity:.9; }
+.deal-bundle{ font-size:15px; }
+.deal-save{
+  font-size:13px;
+  padding:4px 8px;
+  border-radius:999px;
+  background: rgba(255,255,255,.18);
+}
+
+/* Look products grid */
+.look-products-grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:12px;
+}
+.look-product{
+  display:flex;
+  gap:12px;
+  padding:12px;
+  border-radius:16px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.look-product img{
+  width:84px;
+  height:84px;
+  object-fit:cover;
+  border-radius:14px;
+}
+.look-title{ font-weight:900; }
+.look-price{
+  display:inline-block;
+  margin: 8px 0 10px;
+  padding:8px 12px;
+  border-radius:14px;
+  font-weight:900;
+  font-size:18px;
+  color:#0b1220;
+  background: linear-gradient(135deg, #ffd86b, #7c5cff);
+  box-shadow: 0 10px 22px rgba(0,0,0,.25);
+  border: 1px solid rgba(255,255,255,.25);
+}
+
+/* Look bundle card */
+.look-bundle-card{
+  margin-top:10px;
+  padding:14px;
+  border-radius:18px;
+  background: linear-gradient(135deg, rgba(255,115,181,.18), rgba(124,92,255,.18));
+  border: 1px solid rgba(255,255,255,.14);
+}
+.look-bundle-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.lb-title{ font-weight:900; }
+.lb-sub{ margin-top:6px; opacity:.9; font-size:13px; }
