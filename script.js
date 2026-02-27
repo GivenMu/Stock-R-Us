@@ -50,9 +50,36 @@ function totalQty(items) {
 }
 
 function totalPrice(items) {
-  return items.reduce((sum, i) => sum + (i.qty * i.price), 0);
-}
+  let total = 0;
 
+  let lookQty = 0;
+
+  items.forEach(i => {
+
+    // Detect individual Looks (NOT bundle)
+    if (
+      i.name === "Look 1" ||
+      i.name === "Look 2" ||
+      i.name === "Look 3" ||
+      i.name === "Look 4"
+    ) {
+      lookQty += i.qty;
+    } else {
+      total += (i.qty * i.price);
+    }
+  });
+
+  // 🔥 APPLY 3 FOR R220 DEAL ONLY TO LOOKS
+  if (lookQty > 0) {
+    const bundles = Math.floor(lookQty / 3);
+    const remainder = lookQty % 3;
+
+    total += (bundles * 220);      // 3 for R220
+    total += (remainder * 90);     // leftover looks at R90 each
+  }
+
+  return total;
+}
 function renderCart() {
   const items = getCartItems();
 
